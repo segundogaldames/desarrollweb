@@ -21,6 +21,11 @@
         <!-- area principal de contenidos -->
         <section>
             <h2>Lista de Roles</h2>
+            <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
+                <p class="alert alert-success">
+                    El rol se ha registrado correctamente
+                </p>
+            <?php endif; ?>
             <a href="addRoles.php" class="btn btn-primary"> Nuevo Rol </a>
         </section>
 

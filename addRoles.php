@@ -1,3 +1,56 @@
+<?php
+    require('class/conexion.php');//llamamos al archivo conexion.php
+    //preguntaremos si los datos vienen via post 
+    //preguntaremos por la variable confirm y si el valor de esa variable es 1
+    //usamos el operador logico y (&&) para comprobar que ambas condiciones sean verdaderas obligatoriamente
+    if (isset($_POST['confirm']) && $_POST['confirm'] == 1 ) {
+        # code...
+        /* echo '<pre>';
+        print_r($_POST);exit;
+        echo '</pre>'; */
+
+        //recuperando y guardando el dato del nombre del rol
+        //strips_tags => elimina las etiquetas de html y php en una cadena de caracteres
+        //trim => elimina los espacios en blanco antes y despues del dato que recibimos 
+        $nombre = trim(strip_tags($_POST['nombre'])); //proceso de sanitizacion de datos desde el servidor
+        
+        if (!$nombre) {
+            //creamos una variable con el mensaje de error
+            $msg = 'Debe ingresar el nombre del rol';
+        }else{
+            //verificar que el dato ingresado no este registrado en la tabla roles
+            //usaremos el metodo prepare cuando tratemos de consultar por datos que vienen desde el cliente
+            $res = $mbd->prepare("SELECT id FROM roles WHERE nombre = ?");
+            //bindParam sanitiza el dato solicitado por la consulta y explicita el dato
+            $res->bindParam(1, $nombre);
+            //ejecutamos la consulta
+            $res->execute();
+            //disponibilizamos los datos solicitamos
+            $rol = $res->fetch();
+            //print_r($rol);exit;
+
+            if ($rol) {
+                $msg = 'El rol ya está registrado... intente con otro';
+            }else{
+                //registrar el rol en la tabla roles
+                $res = $mbd->prepare("INSERT INTO roles VALUES(null, ?, now(), now() )");
+                $res->bindParam(1, $nombre);
+                $res->execute();
+
+                //consultar por el numero de filas afectadas en esta consulta
+                $row = $res->rowCount();
+
+                if ($row) {
+                    $msg = 'ok';
+                    //redireccionamos hacia la pagina roles.php enviandole el contenido de la variable msg
+                    header('Location: roles.php?m=' . $msg);
+                }
+            }
+
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,15 +75,25 @@
         <section>
             <div class="col-md-6 offset-md-3">
                 <h2>Nuevo Rol</h2>
-                <form>
+                <!-- get => el envio del dato se hace via url del sistema
+                post => el envio del dato se hace via interna -->
+
+                <form action="" method="post">
                     <div class="row mb-3">
                         <label for="rol" class="col-md-2 col-form-label">Rol <span class="text-danger"> * </span> </label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" placeholder="Ingrese el nombre del rol">
+                            <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre del rol">
+                            <!-- mostramos mensaje de error si es que existe -->
+                            <?php if(isset($msg)): ?>
+                                <p class="text-danger">
+                                    <?php echo $msg; ?>
+                                </p>
+                            <?php endif; ?>
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <!-- este campo hidden nos ayudara a comprobar que los datos del formularios sean enviados por post -->
+                    <input type="hidden" name="confirm" value="1">
+                    <button type="submit" class="btn btn-primary"> Guardar </button>
                 </form>
             </div>
             
