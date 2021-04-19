@@ -56,7 +56,11 @@
                         <?php foreach($roles as $rol): ?>
                             <tr>
                                 <td> <?php echo $rol['id']; ?> </td>
-                                <td> <?php echo $rol['nombre']; ?> </td>
+                                <td> 
+                                    <a href="verRol.php?id=<?php echo $rol['id']; ?>">
+                                        <?php echo $rol['nombre']; ?> 
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
