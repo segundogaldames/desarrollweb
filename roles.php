@@ -1,3 +1,23 @@
+<?php
+    //mostrar errores de php en tiempo de ejecucion
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    //llamamos al archivo conexion con la base de datos
+    require('class/conexion.php');
+
+    //consultamos a la tabla roles por los roles registrados en su totalidad
+    //la consulta se ordena por el campo nombre de manera ascendente
+    $res = $mbd->query("SELECT id, nombre FROM roles ORDER BY nombre");
+    $roles = $res->fetchall(); //se disponibilizan los datos a traves de fetchall
+
+    /* echo '<pre>';
+    print_r($roles);exit;
+    echo '</pre>'; */
+    // print_r(count($roles));exit;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,13 +40,35 @@
 
         <!-- area principal de contenidos -->
         <section>
-            <h2>Lista de Roles</h2>
-            <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
-                <p class="alert alert-success">
-                    El rol se ha registrado correctamente
-                </p>
-            <?php endif; ?>
-            <a href="addRoles.php" class="btn btn-primary"> Nuevo Rol </a>
+            <div class="col-md-6 offset-md-3">
+                <h2>Lista de Roles</h2>
+                <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
+                    <p class="alert alert-success">
+                        El rol se ha registrado correctamente
+                    </p>
+                <?php endif; ?>
+                <?php if(isset($roles) && count($roles)): ?>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <th>Rol</th>
+                        </tr>
+                        <?php foreach($roles as $rol): ?>
+                            <tr>
+                                <td> <?php echo $rol['id']; ?> </td>
+                                <td> <?php echo $rol['nombre']; ?> </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+
+                <?php else: ?>
+                    <p class="text-info">
+                        No hay roles registrados
+                    </p>
+                <?php endif; ?>
+                <a href="addRoles.php" class="btn btn-primary"> Nuevo Rol </a>
+            </div>
+            
         </section>
 
         <!-- pie de pagina -->
