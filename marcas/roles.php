@@ -47,20 +47,6 @@
                         El rol se ha registrado correctamente
                     </p>
                 <?php endif; ?>
-
-                <?php if(isset($_GET['d']) && $_GET['d'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        El rol se ha eliminado correctamente
-                    </p>
-                <?php endif; ?>
-
-                <?php if(isset($_GET['e']) && $_GET['e'] == 'ok'): ?>
-                    <p class="alert alert-danger">
-                        La operación no pudo ser realizada
-                    </p>
-                <?php endif; ?>
-
-
                 <?php if(isset($roles) && count($roles)): ?>
                     <table class="table table-hover">
                         <tr>

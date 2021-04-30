@@ -52,7 +52,7 @@
                 <h2>Rol</h2>
                 <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
                     <p class="alert alert-success">
-                        El rol se ha modificado correctamente
+                        El rol se ha registrado correctamente
                     </p>
                 <?php endif; ?>
 
@@ -90,12 +90,6 @@
                     <p>
                         <a href="editRol.php?id=<?php echo $rol['id']; ?>" class="btn btn-primary">Editar</a>
                         <a href="roles.php" class="btn btn-link">Volver</a>
-                        <!-- usaremos un formulario para borrar de manera segura el rol -->
-                        <form action="deleteRol.php" method="post">
-                            <input type="hidden" name="confirm" value="1">
-                            <input type="hidden" name="id" value="<?php echo $id; ?>">
-                            <button type="submit" class="btn btn-warning">Eliminar</button>
-                        </form>    
                     </p>
                 <?php else: ?>
                     <p class="text-info">
