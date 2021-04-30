@@ -5,7 +5,8 @@
     error_reporting(E_ALL);
 
     //llamar al archivo conexion.php
-    require('class/conexion.php');
+    require('../class/conexion.php');
+    require('../class/rutas.php');
 
     //verificar que la variable id que viene por GET existe
     if (isset($_GET['id'])) {
@@ -43,7 +44,7 @@
         <!-- cabecera de la pagina -->
         <header>
             <!-- llamada al archivo menu.php -->
-            <?php include('partials/menu.php'); ?>
+            <?php include('../partials/menu.php'); ?>
         </header>
 
         <!-- area principal de contenidos -->
@@ -88,10 +89,10 @@
                         </tr>
                     </table>
                     <p>
-                        <a href="editRol.php?id=<?php echo $rol['id']; ?>" class="btn btn-primary">Editar</a>
-                        <a href="roles.php" class="btn btn-link">Volver</a>
+                        <a href="edit.php?id=<?php echo $rol['id']; ?>" class="btn btn-primary">Editar</a>
+                        <a href="index.php" class="btn btn-link">Volver</a>
                         <!-- usaremos un formulario para borrar de manera segura el rol -->
-                        <form action="deleteRol.php" method="post">
+                        <form action="delete.php" method="post">
                             <input type="hidden" name="confirm" value="1">
                             <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <button type="submit" class="btn btn-warning">Eliminar</button>

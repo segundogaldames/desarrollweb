@@ -5,7 +5,8 @@
     error_reporting(E_ALL);
 
     //llamamos al archivo conexion con la base de datos
-    require('class/conexion.php');
+    require('../class/conexion.php');
+    require('../class/rutas.php');
 
     //consultamos a la tabla roles por los roles registrados en su totalidad
     //la consulta se ordena por el campo nombre de manera ascendente
@@ -35,7 +36,7 @@
         <!-- cabecera de la pagina -->
         <header>
             <!-- llamada al archivo menu.php -->
-            <?php include('partials/menu.php'); ?>
+            <?php include('../partials/menu.php'); ?>
         </header>
 
         <!-- area principal de contenidos -->
@@ -71,7 +72,7 @@
                             <tr>
                                 <td> <?php echo $rol['id']; ?> </td>
                                 <td> 
-                                    <a href="verRol.php?id=<?php echo $rol['id']; ?>">
+                                    <a href="show.php?id=<?php echo $rol['id']; ?>">
                                         <?php echo $rol['nombre']; ?> 
                                     </a>
                                 </td>
@@ -84,7 +85,7 @@
                         No hay roles registrados
                     </p>
                 <?php endif; ?>
-                <a href="addRoles.php" class="btn btn-primary"> Nuevo Rol </a>
+                <a href="add.php" class="btn btn-primary"> Nuevo Rol </a>
             </div>
             
         </section>

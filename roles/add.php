@@ -1,5 +1,10 @@
 <?php
-    require('class/conexion.php');//llamamos al archivo conexion.php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    require('../class/conexion.php');//llamamos al archivo conexion.php
+    require('../class/rutas.php');
     //preguntaremos si los datos vienen via post 
     //preguntaremos por la variable confirm y si el valor de esa variable es 1
     //usamos el operador logico y (&&) para comprobar que ambas condiciones sean verdaderas obligatoriamente
@@ -43,7 +48,7 @@
                 if ($row) {
                     $msg = 'ok';
                     //redireccionamos hacia la pagina roles.php enviandole el contenido de la variable msg
-                    header('Location: roles.php?m=' . $msg);
+                    header('Location: index.php?m=' . $msg);
                 }
             }
 
@@ -68,7 +73,7 @@
         <!-- cabecera de la pagina -->
         <header>
             <!-- llamada al archivo menu.php -->
-            <?php include('partials/menu.php'); ?>
+            <?php include('../partials/menu.php'); ?>
         </header>
 
         <!-- area principal de contenidos -->

@@ -1,5 +1,10 @@
 <?php
-    require('class/conexion.php');//llamamos al archivo conexion.php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    require('../class/conexion.php');//llamamos al archivo conexion.php
+    require('../class/rutas.php');
 
     if (isset($_GET['id'])) {
         
@@ -40,7 +45,7 @@
 
                 if($row){
                     $msg = 'ok';
-                    header('Location: verRol.php?id=' . $id . '&m=' . $msg );
+                    header('Location: show.php?id=' . $id . '&m=' . $msg );
                 }
             }
         }
@@ -67,7 +72,7 @@
         <!-- cabecera de la pagina -->
         <header>
             <!-- llamada al archivo menu.php -->
-            <?php include('partials/menu.php'); ?>
+            <?php include('../partials/menu.php'); ?>
         </header>
 
         <!-- area principal de contenidos -->
@@ -94,7 +99,7 @@
                         <!-- este campo hidden nos ayudara a comprobar que los datos del formularios sean enviados por post -->
                         <input type="hidden" name="confirm" value="1">
                         <button type="submit" class="btn btn-primary"> Editar </button>
-                        <a href="verRol.php?id=<?php echo $id; ?>" class="btn btn-link"> Volver </a>
+                        <a href="show.php?id=<?php echo $id; ?>" class="btn btn-link"> Volver </a>
                     </form>
                 <?php else: ?>
                     <p class="text-info">El dato no existe</p>
