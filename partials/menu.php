@@ -18,7 +18,7 @@
                         Administracion
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_COMUNAS; ?>">Comunas</a></li>
                         <li><a class="dropdown-item" href="<?php echo BASE_REGIONES; ?>">Regiones</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="<?php echo BASE_ROLES; ?>">Roles</a></li>
