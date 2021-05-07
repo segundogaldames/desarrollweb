@@ -4,3 +4,4 @@
 define('BASE_URL','http://localhost:8888/desarrolloweb/');
 define('BASE_ROLES', BASE_URL . 'roles/');
 define('BASE_MARCAS', BASE_URL . 'marcas/');
+define('BASE_REGIONES', BASE_URL . 'regiones/');
