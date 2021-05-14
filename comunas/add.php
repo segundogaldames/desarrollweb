@@ -15,50 +15,38 @@
     //preguntaremos por la variable confirm y si el valor de esa variable es 1
     //usamos el operador logico y (&&) para comprobar que ambas condiciones sean verdaderas obligatoriamente
     if (isset($_POST['confirm']) && $_POST['confirm'] == 1 ) {
-        # code...
-        /* echo '<pre>';
-        print_r($_POST);exit;
-        echo '</pre>'; */
-
-        //recuperando y guardando el dato del nombre de la region
-        //strips_tags => elimina las etiquetas de html y php en una cadena de caracteres
-        //trim => elimina los espacios en blanco antes y despues del dato que recibimos 
-        $nombre = trim(strip_tags($_POST['nombre'])); //proceso de sanitizacion de datos desde el servidor
         
-        if (!$nombre) {
-            //creamos una variable con el mensaje de error
-            $msg = 'Debe ingresar el nombre de la región';
-        }else{
-            //verificar que el dato ingresado no este registrado en la tabla regiones
-            //usaremos el metodo prepare cuando tratemos de consultar por datos que vienen desde el cliente
-            $res = $mbd->prepare("SELECT id FROM regiones WHERE nombre = ?");
-            //bindParam sanitiza el dato solicitado por la consulta y explicita el dato
-            $res->bindParam(1, $nombre);
-            //ejecutamos la consulta
-            $res->execute();
-            //disponibilizamos los datos solicitamos
-            $region = $res->fetch();
-            //print_r($rol);exit;
+        $nombre = trim(strip_tags($_POST['nombre']));
+        $region = (int) $_POST['region'];
 
-            if ($region) {
-                $msg = 'La región ya está registrada... intente con otra';
-            }else{
-                //registrar la region en la tabla regiones
-                $res = $mbd->prepare("INSERT INTO regiones VALUES(null, ?, now(), now() )");
-                //INSERT INTO regiones(nombre, created_at, updated_at) VALUES(?, now(), now() );
+        if (!$nombre) {
+            $msg = 'Ingrese el nombre de la comuna';
+        }elseif ($region <= 0) {
+            $msg = 'Seleccione la región';
+        }else {
+            //validar que la comuna ingresada no exista
+            $res = $mbd->prepare("SELECT id FROM comunas WHERE nombre = ?");
+            $res->bindParam(1, $nombre);
+            $res->execute();
+
+            $comuna = $res->fetch();
+
+            if ($comuna) {
+                $msg = 'La comuna ingresada ya existe... intente con otra';
+            }else {
+                //registrar la comuna 
+                $res = $mbd->prepare("INSERT INTO comunas VALUES(null, ?, ?, now(), now() )");
                 $res->bindParam(1, $nombre);
+                $res->bindParam(2, $region);
                 $res->execute();
 
-                //consultar por el numero de filas afectadas en esta consulta
                 $row = $res->rowCount();
 
                 if ($row) {
                     $msg = 'ok';
-                    //redireccionamos hacia la pagina index enviandole el contenido de la variable msg
                     header('Location: index.php?m=' . $msg);
                 }
             }
-
         }
     }
 ?>
@@ -69,7 +57,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regiones</title>
+    <title>Comunas</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -86,26 +74,43 @@
         <!-- area principal de contenidos -->
         <section>
             <div class="col-md-6 offset-md-3">
-                <h2>Nueva Región</h2>
+                <h2>Nueva Comuna</h2>
                 <!-- get => el envio del dato se hace via url del sistema
                 post => el envio del dato se hace via interna -->
+                <?php if(isset($msg)): ?>
+                    <p class="alert alert-danger">
+                        <?php echo $msg; ?>
+                    </p>
+                <?php endif; ?>
 
                 <form action="" method="post">
                     <div class="row mb-3">
-                        <label for="rol" class="col-md-2 col-form-label">Región <span class="text-danger"> * </span> </label>
+                        <label for="comuna" class="col-md-2 col-form-label">Comuna <span class="text-danger"> * </span> </label>
                         <div class="col-md-10">
-                            <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre de la región">
+                            <input type="text" name="nombre" value="<?php if(isset($_POST['nombre'])) echo $_POST['nombre']; ?>" class="form-control" placeholder="Ingrese el nombre de la comuna">
                             <!-- mostramos mensaje de error si es que existe -->
-                            <?php if(isset($msg)): ?>
-                                <p class="text-danger">
-                                    <?php echo $msg; ?>
-                                </p>
-                            <?php endif; ?>
+                            
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="region" class="col-md-2 col-form-label">Región <span class="text-danger"> * </span> </label>
+                        <div class="col-md-10">
+                            <select name="region" class="form-control">
+                                <option value="">Seleccione...</option>
+
+                                <?php foreach($regiones as $region): ?>
+                                    <option value="<?php echo $region['id']; ?>">
+                                        <?php echo $region['nombre']; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            
+                            </select>
                         </div>
                     </div>
                     <!-- este campo hidden nos ayudara a comprobar que los datos del formularios sean enviados por post -->
                     <input type="hidden" name="confirm" value="1">
                     <button type="submit" class="btn btn-primary"> Guardar </button>
+                    <a href="index.php" class="btn btn-link">Volver</a>
                 </form>
             </div>
             
