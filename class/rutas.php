@@ -6,3 +6,4 @@ define('BASE_ROLES', BASE_URL . 'roles/');
 define('BASE_MARCAS', BASE_URL . 'marcas/');
 define('BASE_REGIONES', BASE_URL . 'regiones/');
 define('BASE_COMUNAS', BASE_URL . 'comunas/');
+define('BASE_PERSONAS', BASE_URL . 'personas/');
