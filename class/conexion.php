@@ -1,6 +1,6 @@
 <?php
 $usuario = 'root';
-$password = 'root';
+$password = '1234';
 
 try {
     $mbd = new PDO('mysql:host=localhost;dbname=desarrolloweb', $usuario, $password);
