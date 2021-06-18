@@ -21,6 +21,8 @@
                         <li><a class="dropdown-item" href="<?php echo BASE_COMUNAS; ?>">Comunas</a></li>
                         <li><a class="dropdown-item" href="<?php echo BASE_REGIONES; ?>">Regiones</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_TIPOS; ?>">Producto Tipos</a></li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="<?php echo BASE_PERSONAS; ?>">Personas</a></li>
                         <li><a class="dropdown-item" href="<?php echo BASE_ROLES; ?>">Roles</a></li>
                     </ul>

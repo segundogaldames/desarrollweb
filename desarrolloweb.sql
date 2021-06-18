@@ -116,7 +116,7 @@ CREATE TABLE `personas` (
   KEY `comuna_id` (`comuna_id`),
   CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `personas_ibfk_2` FOREIGN KEY (`comuna_id`) REFERENCES `comunas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +125,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'Jose Maza Sancho','9629547-k','josemaza@gmail.com','las acacias 1212','2021-06-03',669988230,1,5,'2021-06-04 12:18:51','2021-06-04 12:18:51');
+INSERT INTO `personas` VALUES (1,'Jose Maza Sancho','9629547-k','josemaza@gmail.com','las acacias 1212','2021-06-03',669988230,1,5,'2021-06-04 12:18:51','2021-06-04 12:18:51'),(2,'Pedro Engel','6293547-k','pengel@tarot.cl','Vicuña Mackena 1302','2021-06-07',698723564,3,1,'2021-06-11 11:09:06','2021-06-11 12:09:25');
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `producto_tipos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,6 +149,7 @@ CREATE TABLE `producto_tipos` (
 
 LOCK TABLES `producto_tipos` WRITE;
 /*!40000 ALTER TABLE `producto_tipos` DISABLE KEYS */;
+INSERT INTO `producto_tipos` VALUES (1,'Notebook'),(2,'Periféricos');
 /*!40000 ALTER TABLE `producto_tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-11 10:46:19
+-- Dump completed on 2021-06-18 10:40:35
