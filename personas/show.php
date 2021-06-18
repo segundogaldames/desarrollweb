@@ -20,6 +20,11 @@
         $res->execute();
         $persona = $res->fetch();
 
+        $res = $mbd->prepare("SELECT id FROM usuarios WHERE persona_id = ?");
+        $res->bindParam(1, $id);
+        $res->execute();
+        $usuario = $res->fetch();
+
         /* echo '<pre>';
         print_r($rol);exit;
         echo '</pre>'; */
@@ -54,6 +59,11 @@
                 <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
                     <p class="alert alert-success">
                         La persona se ha modificado correctamente
+                    </p>
+                <?php endif; ?>
+                <?php if(isset($_GET['u']) && $_GET['u'] == 'ok'): ?>
+                    <p class="alert alert-success">
+                        La cuenta se ha creado correctamente
                     </p>
                 <?php endif; ?>
 
@@ -119,6 +129,13 @@
                     </table>
                     <p>
                         <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
+
+                        <?php if(!$usuario): ?>
+                            <a href="../usuarios/add.php?id_persona=<?php echo $id; ?>" class="btn btn-success">Agregar Cuenta</a>
+                        <?php else: ?>
+                            <a href="#" class="btn btn-warning">Editar Password</a>
+                        <?php endif; ?>
+
                         <a href="index.php" class="btn btn-link">Volver</a>
                     </p>
                 <?php else: ?>

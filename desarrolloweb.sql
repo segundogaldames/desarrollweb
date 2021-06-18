@@ -154,6 +154,40 @@ INSERT INTO `producto_tipos` VALUES (1,'Notebook'),(2,'Periféricos');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sku` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `precio` int NOT NULL,
+  `activo` int NOT NULL,
+  `marca_id` int NOT NULL,
+  `producto_tipo_id` int NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `marca_id` (`marca_id`),
+  KEY `producto_tipo_id` (`producto_tipo_id`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`),
+  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`producto_tipo_id`) REFERENCES `producto_tipos` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productos`
+--
+
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `regiones`
 --
 
@@ -204,6 +238,36 @@ LOCK TABLES `roles` WRITE;
 INSERT INTO `roles` VALUES (1,'Cliente','2021-04-16 11:50:46','2021-04-23 21:40:55'),(2,'Administrador','2021-04-16 11:51:56','2021-04-30 11:36:23'),(3,'Supervisor','2021-04-16 11:57:12','2021-04-16 11:57:12'),(4,'Vendedor','2021-04-16 12:01:45','2021-04-16 12:01:45');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `clave` varchar(255) NOT NULL,
+  `activo` int NOT NULL,
+  `persona_id` int NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `persona_id` (`persona_id`),
+  CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'70a74e45a883d6dc828fe6bba5ed49a6c890c734',1,2,'2021-06-18 11:43:59','2021-06-18 11:43:59');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -214,4 +278,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-18 10:40:35
+-- Dump completed on 2021-06-18 12:03:19

@@ -8,3 +8,4 @@ define('BASE_REGIONES', BASE_URL . 'regiones/');
 define('BASE_COMUNAS', BASE_URL . 'comunas/');
 define('BASE_PERSONAS', BASE_URL . 'personas/');
 define('BASE_TIPOS', BASE_URL . 'productoTipos/');
+define('BASE_USUARIOS', BASE_URL . 'usuarios/');
