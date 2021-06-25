@@ -20,13 +20,13 @@
         $res->execute();
         $persona = $res->fetch();
 
-        $res = $mbd->prepare("SELECT id FROM usuarios WHERE persona_id = ?");
+        $res = $mbd->prepare("SELECT id, activo FROM usuarios WHERE persona_id = ?");
         $res->bindParam(1, $id);
         $res->execute();
         $usuario = $res->fetch();
 
         /* echo '<pre>';
-        print_r($rol);exit;
+        print_r($usuario);exit;
         echo '</pre>'; */
 
     }
@@ -64,6 +64,18 @@
                 <?php if(isset($_GET['u']) && $_GET['u'] == 'ok'): ?>
                     <p class="alert alert-success">
                         La cuenta se ha creado correctamente
+                    </p>
+                <?php endif; ?>
+
+                <?php if(isset($_GET['e']) && $_GET['e'] == 'ok'): ?>
+                    <p class="alert alert-success">
+                        El estado de la cuenta se ha modificado correctamente
+                    </p>
+                <?php endif; ?>
+
+                <?php if(isset($_GET['p']) && $_GET['p'] == 'ok'): ?>
+                    <p class="alert alert-success">
+                        El password se ha modificado correctamente
                     </p>
                 <?php endif; ?>
 
@@ -107,6 +119,23 @@
                             <td><?php echo $persona['rol']; ?></td>
                         </tr>
                         <tr>
+                            <th>Activo:</th>
+                            <td>
+                                <?php
+                                    if (!empty($usuario)) {
+                                        if ($usuario['activo'] == 1) {
+                                            echo "Si";
+                                        }else {
+                                            echo "No";
+                                        }
+                                        echo "<a href='../usuarios/edit.php?id=" . $usuario['id'] ."' class='btn btn-link btn-sm'>Modificar</a>";
+                                    }else {
+                                        echo "No";
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>Creado:</th>
                             <td>
                                 <?php
@@ -133,7 +162,7 @@
                         <?php if(!$usuario): ?>
                             <a href="../usuarios/add.php?id_persona=<?php echo $id; ?>" class="btn btn-success">Agregar Cuenta</a>
                         <?php else: ?>
-                            <a href="#" class="btn btn-warning">Editar Password</a>
+                            <a href="../usuarios/editPassword.php?id=<?php echo $usuario['id']; ?>" class="btn btn-warning">Editar Password</a>
                         <?php endif; ?>
 
                         <a href="index.php" class="btn btn-link">Volver</a>

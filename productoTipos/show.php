@@ -15,7 +15,7 @@
         $id = (int) $_GET['id']; //parseamos la variable la variable GET
 
         //validamos que el id ingresado exista en la tabla regiones
-        $res = $mbd->prepare("SELECT id, nombre, created_at, updated_at FROM producto_tipos WHERE id = ?");
+        $res = $mbd->prepare("SELECT id, nombre FROM producto_tipos WHERE id = ?");
         $res->bindParam(1, $id);
         $res->execute();
         $tipo = $res->fetch();
@@ -66,26 +66,6 @@
                         <tr>
                             <th>Producto Tipo:</th>
                             <td> <?php echo $tipo['nombre']; ?> </td>
-                        </tr>
-                        <tr>
-                            <th>Creado:</th>
-                            <td>
-                                <?php
-                                    //creamos una instancia de la clase DateTime de php para guardarla en la variable fecha
-                                    $fecha = new DateTime($tipo['created_at']);
-                                    echo $fecha->format('d-m-Y H:i:s');
-                                ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Actualizado:</th>
-                            <td>
-                                <?php
-                                    //creamos una instancia de la clase DateTime de php para guardarla en la variable fecha
-                                    $fecha = new DateTime($tipo['updated_at']);
-                                    echo $fecha->format('d-m-Y H:i:s');
-                                ?>
-                            </td>
                         </tr>
                     </table>
                     <p>
