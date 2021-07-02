@@ -1,5 +1,9 @@
-<?php 
+<?php
     require('class/rutas.php');
+
+    session_start();
+
+    //print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +27,11 @@
 
         <!-- area principal de contenidos -->
         <section>
+
+            <?php include('partials/mensajes.php'); ?>
+
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt laborum animi tempora amet commodi temporibus labore praesentium ipsum eum. Quaerat nostrum vero quia, ullam voluptatum voluptates totam est fugiat odio?</p>
+
         </section>
 
         <!-- pie de pagina -->
@@ -31,6 +39,6 @@
             <h3>Desarrollo Web 2021</h3>
         </footer>
     </div>
-    
+
 </body>
 </html>

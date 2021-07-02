@@ -116,7 +116,7 @@ CREATE TABLE `personas` (
   KEY `comuna_id` (`comuna_id`),
   CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `personas_ibfk_2` FOREIGN KEY (`comuna_id`) REFERENCES `comunas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +125,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'Jose Maza Sancho','9629547-k','josemaza@gmail.com','las acacias 1212','2021-06-03',669988230,1,5,'2021-06-04 12:18:51','2021-06-04 12:18:51'),(2,'Pedro Engel','6293547-k','pengel@tarot.cl','Vicuña Mackena 1302','2021-06-07',698723564,3,1,'2021-06-11 11:09:06','2021-06-11 12:09:25');
+INSERT INTO `personas` VALUES (1,'Jose Maza Sancho','9629547-k','josemaza@gmail.com','las acacias 1212','2021-06-03',669988230,1,5,'2021-06-04 12:18:51','2021-06-04 12:18:51'),(2,'Pedro Engel','6293547-k','pengel@tarot.cl','Vicuña Mackena 1302','2021-06-07',698723564,3,1,'2021-06-11 11:09:06','2021-06-11 12:09:25'),(3,'segundo galdames','12569821-2','sgaldamesh@gmail.com','honduras 819','2021-07-01',965873254,2,3,'2021-07-02 11:13:21','2021-07-02 11:13:21');
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +256,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`),
   KEY `persona_id` (`persona_id`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,7 +265,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'7c222fb2927d828af22f592134e8932480637c0d',1,2,'2021-06-18 11:43:59','2021-06-25 11:39:12');
+INSERT INTO `usuarios` VALUES (1,'7c222fb2927d828af22f592134e8932480637c0d',1,2,'2021-06-18 11:43:59','2021-07-02 10:27:02'),(2,'7c222fb2927d828af22f592134e8932480637c0d',1,3,'2021-07-02 11:27:51','2021-07-02 11:27:51');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -278,4 +278,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-25 12:14:25
+-- Dump completed on 2021-07-02 12:08:47

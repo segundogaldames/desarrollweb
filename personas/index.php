@@ -8,6 +8,8 @@
     require('../class/conexion.php');
     require('../class/rutas.php');
 
+    session_start();
+
     //consultamos a la tabla personas por los personas registrados en su totalidad
     //la consulta se ordena por el campo nombre de manera ascendente
     $res = $mbd->query("SELECT p.id, p.nombre, r.nombre as rol, c.nombre as comuna FROM personas p INNER JOIN roles r ON p.rol_id = r.id INNER JOIN comunas c ON p.comuna_id = c.id ORDER BY p.nombre");
@@ -43,24 +45,8 @@
         <section>
             <div class="col-md-6 offset-md-3">
                 <h2>Lista de Personas</h2>
-                <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        La persona se ha registrado correctamente
-                    </p>
-                <?php endif; ?>
 
-                <?php if(isset($_GET['d']) && $_GET['d'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        La persona se ha eliminado correctamente
-                    </p>
-                <?php endif; ?>
-
-                <?php if(isset($_GET['e']) && $_GET['e'] == 'ok'): ?>
-                    <p class="alert alert-danger">
-                        La operación no pudo ser realizada
-                    </p>
-                <?php endif; ?>
-
+                <?php include('../partials/mensajes.php'); ?>
 
                 <?php if(count($personas)): ?>
                     <table class="table table-hover">

@@ -3,6 +3,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    session_start();
+
     require('../class/conexion.php');//llamamos al archivo conexion.php
     require('../class/rutas.php');
 
@@ -41,8 +43,8 @@
                     $row = $res->rowCount();
 
                     if($row){
-                        $msg = 'ok';
-                        header('Location: ../personas/show.php?id=' . $id_persona . '&u=' . $msg);
+                        $_SESSION['success'] = 'La cuenta de usuario se ha creado correctamente';
+                        header('Location: ../personas/show.php?id=' . $id_persona);
                     }
                 }
 

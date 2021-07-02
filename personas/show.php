@@ -4,6 +4,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    session_start();
+
     //llamar al archivo conexion.php
     require('../class/conexion.php');
     require('../class/rutas.php');
@@ -56,28 +58,8 @@
         <section>
             <div class="col-md-6 offset-md-3">
                 <h2>Persona</h2>
-                <?php if(isset($_GET['m']) && $_GET['m'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        La persona se ha modificado correctamente
-                    </p>
-                <?php endif; ?>
-                <?php if(isset($_GET['u']) && $_GET['u'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        La cuenta se ha creado correctamente
-                    </p>
-                <?php endif; ?>
 
-                <?php if(isset($_GET['e']) && $_GET['e'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        El estado de la cuenta se ha modificado correctamente
-                    </p>
-                <?php endif; ?>
-
-                <?php if(isset($_GET['p']) && $_GET['p'] == 'ok'): ?>
-                    <p class="alert alert-success">
-                        El password se ha modificado correctamente
-                    </p>
-                <?php endif; ?>
+                <?php include('../partials/mensajes.php'); ?>
 
                 <?php if(!empty($persona)): ?>
                     <table class="table table-hover">

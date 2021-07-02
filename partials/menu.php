@@ -27,9 +27,20 @@
                         <li><a class="dropdown-item" href="<?php echo BASE_ROLES; ?>">Roles</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_USUARIOS . 'login.php'; ?>">Login</a>
-                </li>
+                <?php if(!isset($_SESSION['autenticado'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo BASE_USUARIOS . 'login.php'; ?>">Login</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo ucwords($_SESSION['usuario_nombre']); ?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?php echo BASE_USUARIOS . 'logout.php'; ?>">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

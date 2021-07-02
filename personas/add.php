@@ -3,6 +3,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
+    session_start();
+
     require('../class/conexion.php');//llamamos al archivo conexion.php
     require('../class/rutas.php');
 
@@ -81,9 +83,9 @@
                 $row = $res->rowCount();
 
                 if ($row) {
-                    $msg = 'ok';
+                    $_SESSION['success'] = 'La persona se ha registrado correctamente';
                     //redireccionamos hacia la pagina index enviandole el contenido de la variable msg
-                    header('Location: index.php?m=' . $msg);
+                    header('Location: index.php');
                 }
             }
 

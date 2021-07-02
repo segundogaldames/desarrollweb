@@ -6,6 +6,8 @@
     require('../class/conexion.php');//llamamos al archivo conexion.php
     require('../class/rutas.php');
 
+    session_start();//indispensable para leer e iniciar variables de sesion
+
     if (isset($_POST['confirm']) && $_POST['confirm'] == 1) {
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
         $clave = trim(strip_tags($_POST['clave']));
@@ -27,6 +29,13 @@
 
             if ($usuario) {
                 //creamos las variables de session de php
+                $_SESSION['autenticado'] = true;
+                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['usuario_nombre'] = $usuario['nombre'];
+                $_SESSION['usuario_email'] = $usuario['email'];
+                $_SESSION['usuario_rol'] = $usuario['rol'];
+
+                header('Location: ' . BASE_URL);
             }else{
                 $msg = 'El email o el password no estan registrados';
             }
