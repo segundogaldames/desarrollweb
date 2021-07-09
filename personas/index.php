@@ -20,6 +20,7 @@
     echo '</pre>'; */
     // print_r(count($personas));exit;
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 'Cliente'): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,3 +87,6 @@
 
 </body>
 </html>
+<?php else: ?>
+    <?php header('Location: ' . BASE_URL); ?>
+<?php endif; ?>

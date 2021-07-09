@@ -46,6 +46,7 @@
 
 
 ?>
+<?php if(isset($_SESSION['autenticado']) && ($_SESSION['usuario_rol'] == 'Administrador' || $_SESSION['usuario_id'] == $usuario['id'] ) ): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,3 +115,6 @@
 
 </body>
 </html>
+<?php else: ?>
+    <?php header('Location: ' . BASE_URL); ?>
+<?php endif; ?>

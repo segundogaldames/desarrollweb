@@ -33,6 +33,7 @@
 
     }
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 'Cliente'): ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +111,11 @@
                                         }else {
                                             echo "No";
                                         }
-                                        echo "<a href='../usuarios/edit.php?id=" . $usuario['id'] ."' class='btn btn-link btn-sm'>Modificar</a>";
+                                        if ($_SESSION['usuario_rol'] == 'Administrador') {
+                                            # code...
+
+                                            echo "<a href='../usuarios/edit.php?id=" . $usuario['id'] ."' class='btn btn-link btn-sm'>Modificar</a>";
+                                        }
                                     }else {
                                         echo "No";
                                     }
@@ -139,12 +144,18 @@
                         </tr>
                     </table>
                     <p>
-                        <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
+                        <?php if($_SESSION['usuario_rol'] == 'Administrador'): ?>
+                            <a href="edit.php?id=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
+                        <?php endif; ?>
 
                         <?php if(!$usuario): ?>
-                            <a href="../usuarios/add.php?id_persona=<?php echo $id; ?>" class="btn btn-success">Agregar Cuenta</a>
+                            <?php if($_SESSION['usuario_rol'] == 'Administrador'): ?>
+                                <a href="../usuarios/add.php?id_persona=<?php echo $id; ?>" class="btn btn-success">Agregar Cuenta</a>
+                            <?php endif; ?>
                         <?php else: ?>
-                            <a href="../usuarios/editPassword.php?id=<?php echo $usuario['id']; ?>" class="btn btn-warning">Editar Password</a>
+                            <?php if($_SESSION['usuario_rol'] == 'Administrador' || $_SESSION['usuario_id'] == $usuario['id']): ?>
+                                <a href="../usuarios/editPassword.php?id=<?php echo $usuario['id']; ?>" class="btn btn-warning">Editar Password</a>
+                            <?php endif; ?>
                         <?php endif; ?>
 
                         <a href="index.php" class="btn btn-link">Volver</a>
@@ -167,3 +178,6 @@
 
 </body>
 </html>
+<?php else: ?>
+    <?php header('Location: ' . BASE_URL); ?>
+<?php endif; ?>

@@ -13,20 +13,23 @@
                     <a class="nav-link" href="#">Link</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Administracion
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="<?php echo BASE_COMUNAS; ?>">Comunas</a></li>
-                        <li><a class="dropdown-item" href="<?php echo BASE_REGIONES; ?>">Regiones</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="<?php echo BASE_TIPOS; ?>">Producto Tipos</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="<?php echo BASE_PERSONAS; ?>">Personas</a></li>
-                        <li><a class="dropdown-item" href="<?php echo BASE_ROLES; ?>">Roles</a></li>
-                    </ul>
-                </li>
+                <?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] != 'Cliente'): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Administracion
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?php echo BASE_COMUNAS; ?>">Comunas</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_REGIONES; ?>">Regiones</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_TIPOS; ?>">Producto Tipos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_PERSONAS; ?>">Personas</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASE_ROLES; ?>">Roles</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
                 <?php if(!isset($_SESSION['autenticado'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo BASE_USUARIOS . 'login.php'; ?>">Login</a>
@@ -37,6 +40,9 @@
                             <?php echo ucwords($_SESSION['usuario_nombre']); ?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a href="<?php echo BASE_USUARIOS . 'editPassword.php?id=' . $_SESSION['usuario_id']; ?>" class="dropdown-item">Editar Password</a>
+                            </li>
                             <li><a class="dropdown-item" href="<?php echo BASE_USUARIOS . 'logout.php'; ?>">Logout</a></li>
                         </ul>
                     </li>
